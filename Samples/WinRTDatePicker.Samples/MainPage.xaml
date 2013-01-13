@@ -1,0 +1,103 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:WinRTDatePicker="using:WinRTDatePicker"
+      x:Class="WinRTDatePicker.Samples.MainPage"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="DatePickerStyle1"
+               TargetType="WinRTDatePicker:DatePicker">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="WinRTDatePicker:DatePicker">
+                        <StackPanel Background="{TemplateBinding Background}">
+                            <ComboBox x:Name="DayOptions"
+                                      VerticalAlignment="Top"
+                                      Background="#CCFF0000" />
+                            <ComboBox x:Name="MonthOptions"
+                                      VerticalAlignment="Top"
+                                      Background="#CC17FF00" />
+                            <ComboBox x:Name="YearOptions"
+                                      VerticalAlignment="Top"
+                                      Background="#CC0023FF" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.5*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="5,5,0,0">
+            <TextBlock TextWrapping="Wrap"
+                       Text="Default Style"
+                       Style="{StaticResource PageSubheaderTextStyle}" />
+            <WinRTDatePicker:DatePicker x:Name="datePicker"
+                                        d:LayoutOverrides="Width" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Selected Date:"
+                           Style="{StaticResource BodyTextStyle}" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding SelectedDate, ElementName=datePicker}"
+                           Margin="0,0,-204,0"
+                           d:LayoutOverrides="Width"
+                           Style="{StaticResource BodyTextStyle}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Grid.Column="1"
+                    Margin="5,5,0,0">
+            <TextBlock TextWrapping="Wrap"
+                       Text="Day And Month Formatting"
+                       Style="{StaticResource PageSubheaderTextStyle}" />
+            <WinRTDatePicker:DatePicker x:Name="datePicker1"
+                                        DayOptionFormat="dd"
+                                        MonthOptionFormat="MM" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Selected Date:"
+                           Style="{StaticResource BodyTextStyle}" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding SelectedDate, ElementName=datePicker1}"
+                           Margin="0,0,-204,0"
+                           d:LayoutOverrides="Width"
+                           Style="{StaticResource BodyTextStyle}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="5,5,0,0"
+                    Grid.Row="1">
+            <TextBlock TextWrapping="Wrap"
+                       Style="{StaticResource PageSubheaderTextStyle}">
+    			<Run Text="Custom " />
+    			<Run Text="Template" />
+            </TextBlock>
+            <WinRTDatePicker:DatePicker x:Name="datePicker3"
+                                        Style="{StaticResource DatePickerStyle1}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Selected Date:"
+                           Style="{StaticResource BodyTextStyle}" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding SelectedDate, ElementName=datePicker3}"
+                           d:LayoutOverrides="Width"
+                           Style="{StaticResource BodyTextStyle}" />
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>
