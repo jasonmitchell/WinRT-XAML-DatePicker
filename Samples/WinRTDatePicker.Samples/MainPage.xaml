@@ -39,7 +39,8 @@
         </Grid.ColumnDefinitions>
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Margin="5,5,0,0">
+                    Margin="5,5,0,0"
+                    Width="350">
             <TextBlock TextWrapping="Wrap"
                        Text="Default Style"
                        Style="{StaticResource PageSubheaderTextStyle}" />
@@ -59,7 +60,8 @@
         <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Grid.Column="1"
-                    Margin="5,5,0,0">
+                    Margin="5,5,0,0"
+                    Width="350">
             <TextBlock TextWrapping="Wrap"
                        Text="Day And Month Formatting"
                        Style="{StaticResource PageSubheaderTextStyle}" />
@@ -80,12 +82,11 @@
         <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="5,5,0,0"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    Width="350">
             <TextBlock TextWrapping="Wrap"
-                       Style="{StaticResource PageSubheaderTextStyle}">
-    			<Run Text="Custom " />
-    			<Run Text="Template" />
-            </TextBlock>
+                       Style="{StaticResource PageSubheaderTextStyle}"
+                       Text="Custom Template" />
             <WinRTDatePicker:DatePicker x:Name="datePicker3"
                                         Style="{StaticResource DatePickerStyle1}" />
             <StackPanel Orientation="Horizontal">
