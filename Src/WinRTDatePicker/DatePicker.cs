@@ -8,12 +8,14 @@ namespace WinRTDatePicker
 {
     public sealed class DatePicker : Control
     {
-        public static readonly DependencyProperty SelectedDateProperty = DependencyProperty.Register("SelectedDate", typeof(DateTime), typeof(DatePicker), new PropertyMetadata(default(DateTime)));
+        public static readonly DependencyProperty SelectedDateProperty = DependencyProperty.Register("SelectedDate", typeof(DateTime), typeof(DatePicker), new PropertyMetadata(default(DateTime), SelectedDateChangedCallback));
         public static readonly DependencyProperty DayOptionFormatProperty = DependencyProperty.Register("DayOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
         public static readonly DependencyProperty MonthOptionFormatProperty = DependencyProperty.Register("MonthOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
 
         private readonly ObservableCollection<string> daysInMonth = new ObservableCollection<string>();
         private readonly ObservableCollection<int> yearsInRange = new ObservableCollection<int>();
+
+        private bool controlLoaded;
 
         public DatePicker()
         {
@@ -28,30 +30,46 @@ namespace WinRTDatePicker
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            for (int i = 1; i <= DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month); i++)
-            {
-                DateTime date = new DateTime(SelectedDate.Year, SelectedDate.Month, i);
-                daysInMonth.Add(date.ToString(DayOptionFormat));
-            }
+            controlLoaded = true;
 
             for (int i = 1; i <= 12; i++)
             {
-                DateTime monthStart = new DateTime(SelectedDate.Year, i, 1);
+                DateTime monthStart = new DateTime(DateTime.Now.Year, i, 1);
                 MonthOptions.Items.Add(monthStart.ToString(MonthOptionFormat));
             }
 
-            int minYear = SelectedDate.Year - 10;
-            int maxYear = SelectedDate.Year + 10;
-            for (int i = minYear; i <= maxYear; i++)
-            {
-                yearsInRange.Add(i);
-            }
-
             CreateBindings();
+            SetSelectedDate(SelectedDate);
 
             DayOptions.SelectionChanged += DayOptionsOnSelectionChanged;
             MonthOptions.SelectionChanged += MonthOptionsOnSelectionChanged;
             YearOptions.SelectionChanged += YearOptionsOnSelectionChanged;
+        }
+
+        private void SetSelectedDate(DateTime newSelectedDate)
+        {
+            if (controlLoaded)
+            {
+                daysInMonth.Clear();
+                yearsInRange.Clear();
+
+                for (int i = 1; i <= DateTime.DaysInMonth(newSelectedDate.Year, newSelectedDate.Month); i++)
+                {
+                    DateTime date = new DateTime(newSelectedDate.Year, newSelectedDate.Month, i);
+                    daysInMonth.Add(date.ToString(DayOptionFormat));
+                }
+
+                int minYear = newSelectedDate.Year - 10;
+                int maxYear = newSelectedDate.Year + 10;
+                for (int i = minYear; i <= maxYear; i++)
+                {
+                    yearsInRange.Add(i);
+                }
+
+                DayOptions.SelectedIndex = newSelectedDate.Day - 1;
+                MonthOptions.SelectedIndex = newSelectedDate.Month - 1;
+                YearOptions.SelectedItem = newSelectedDate.Year;
+            }
         }
 
         private void CreateBindings()
@@ -61,32 +79,31 @@ namespace WinRTDatePicker
 
             Binding yearOptionsBinding = new Binding { Source = yearsInRange, Mode = BindingMode.OneWay };
             YearOptions.SetBinding(ItemsControl.ItemsSourceProperty, yearOptionsBinding);
-
-            DayOptions.SelectedIndex = SelectedDate.Day - 1;
-            MonthOptions.SelectedIndex = SelectedDate.Month - 1;
-            YearOptions.SelectedItem = SelectedDate.Year;
         }
 
-        private void UpdateSelectedDate()
+        private void UpdateSelectedDateFromInputs()
         {
-            int year = (int)YearOptions.SelectedValue;
-            int month = MonthOptions.SelectedIndex + 1;
-            int day = DayOptions.SelectedIndex + 1;
-
-            int maxDaysInMonth = DateTime.DaysInMonth(year, month);
-            if (day > maxDaysInMonth)
+            if (YearOptions.SelectedIndex >= 0 && MonthOptions.SelectedIndex >= 0 && DayOptions.SelectedIndex >= 0)
             {
-                day = maxDaysInMonth;
-                DayOptions.SelectedIndex = maxDaysInMonth - 1;
+                int year = (int)YearOptions.SelectedValue;
+                int month = MonthOptions.SelectedIndex + 1;
+                int day = DayOptions.SelectedIndex + 1;
+
+                int maxDaysInMonth = DateTime.DaysInMonth(year, month);
+                if (day > maxDaysInMonth)
+                {
+                    day = maxDaysInMonth;
+                    DayOptions.SelectedIndex = maxDaysInMonth - 1;
+                }
+
+                if (month == 0)
+                    month = 1;
+
+                if (day == 0)
+                    day = 1;
+
+                SelectedDate = new DateTime(year, month, day);
             }
-
-            if (month == 0)
-                month = 1;
-
-            if (day == 0)
-                day = 1;
-
-            SelectedDate = new DateTime(year, month, day);
         }
 
         private void UpdateDayOptions()
@@ -107,19 +124,31 @@ namespace WinRTDatePicker
 
         private void DayOptionsOnSelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            UpdateSelectedDate();
+            UpdateSelectedDateFromInputs();
         }
 
         private void MonthOptionsOnSelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            UpdateSelectedDate();
+            UpdateSelectedDateFromInputs();
             UpdateDayOptions();
         }
 
         private void YearOptionsOnSelectionChanged(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
         {
-            UpdateSelectedDate();
+            UpdateSelectedDateFromInputs();
             UpdateDayOptions();
+        }
+
+        private static void SelectedDateChangedCallback(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            DateTime oldValue = (DateTime)args.OldValue;
+            DateTime newValue = (DateTime)args.NewValue;
+
+            if (newValue != oldValue)
+            {
+                DatePicker datePicker = (DatePicker)obj;
+                datePicker.SetSelectedDate(newValue);
+            }
         }
 
         public DateTime SelectedDate
