@@ -27,14 +27,13 @@ namespace WinRTDatePicker
             SelectedDate = DateTime.Today;
             DayOptionFormat = "dd dddd";
             MonthOptionFormat = "MMMM";
-
-            Loaded += OnLoaded;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        protected override void OnApplyTemplate()
         {
-            controlLoaded = true;
+            base.OnApplyTemplate();
 
+            controlLoaded = true;
             for (int i = 1; i <= 12; i++)
             {
                 DateTime monthStart = new DateTime(DateTime.Now.Year, i, 1);
