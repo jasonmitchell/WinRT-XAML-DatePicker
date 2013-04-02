@@ -15,7 +15,7 @@ namespace WinRTDatePicker
         public static readonly DependencyProperty DayOptionFormatProperty = DependencyProperty.Register("DayOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
         public static readonly DependencyProperty MonthOptionFormatProperty = DependencyProperty.Register("MonthOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
 
-        private readonly ObservableCollection<string> daysInMonth = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> daysInRange = new ObservableCollection<string>();
         private readonly ObservableCollection<string> monthsInRange = new ObservableCollection<string>(); 
         private readonly ObservableCollection<int> yearsInRange = new ObservableCollection<int>();
 
@@ -51,13 +51,13 @@ namespace WinRTDatePicker
         {
             if (DayOptions != null && MonthOptions != null && YearOptions != null)
             {
-                daysInMonth.Clear();
+                daysInRange.Clear();
                 yearsInRange.Clear();
 
                 for (int i = 1; i <= DateTime.DaysInMonth(newSelectedDate.Year, newSelectedDate.Month); i++)
                 {
                     DateTime date = new DateTime(newSelectedDate.Year, newSelectedDate.Month, i);
-                    daysInMonth.Add(date.ToString(DayOptionFormat));
+                    daysInRange.Add(date.ToString(DayOptionFormat));
                 }
 
                 int minYear = newSelectedDate.Year - 10;
@@ -75,7 +75,7 @@ namespace WinRTDatePicker
 
         private void CreateBindings()
         {
-            Binding dayOptionsBinding = new Binding { Source = daysInMonth, Mode = BindingMode.OneWay };
+            Binding dayOptionsBinding = new Binding { Source = daysInRange, Mode = BindingMode.OneWay };
             DayOptions.SetBinding(ItemsControl.ItemsSourceProperty, dayOptionsBinding);
 
             Binding monthOptionsBinding = new Binding { Source = monthsInRange, Mode = BindingMode.OneWay };
@@ -115,12 +115,12 @@ namespace WinRTDatePicker
             int selectedDayIndex = DayOptions.SelectedIndex;
             int month = MonthOptions.SelectedIndex + 1;
 
-            daysInMonth.Clear();
+            daysInRange.Clear();
 
             for (int i = 1; i <= DateTime.DaysInMonth(SelectedDate.Year, month); i++)
             {
                 DateTime date = new DateTime(SelectedDate.Year, month, i);
-                daysInMonth.Add(date.ToString(DayOptionFormat));
+                daysInRange.Add(date.ToString(DayOptionFormat));
             }
 
             DayOptions.SelectedIndex = selectedDayIndex;
