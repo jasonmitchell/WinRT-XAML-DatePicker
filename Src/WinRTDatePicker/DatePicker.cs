@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Data;
 
 namespace WinRTDatePicker
 {
+    [TemplatePart(Name = "_DayOptions", Type = typeof(ComboBox))]
+    [TemplatePart(Name = "_MonthOptions", Type = typeof(ComboBox))]
+    [TemplatePart(Name = "_YearOptions", Type = typeof(ComboBox))]
     public sealed class DatePicker : Control
     {
         public static readonly DependencyProperty SelectedDateProperty = DependencyProperty.Register("SelectedDate", typeof(DateTime), typeof(DatePicker), new PropertyMetadata(default(DateTime), SelectedDateChangedCallback));
@@ -171,17 +174,17 @@ namespace WinRTDatePicker
 
         private ComboBox DayOptions
         {
-            get { return (ComboBox)GetTemplateChild("DayOptions"); }
+            get { return (ComboBox)GetTemplateChild("_DayOptions"); }
         }
 
         private ComboBox MonthOptions
         {
-            get { return (ComboBox)GetTemplateChild("MonthOptions"); }
+            get { return (ComboBox)GetTemplateChild("_MonthOptions"); }
         }
 
         private ComboBox YearOptions
         {
-            get { return (ComboBox)GetTemplateChild("YearOptions"); }
+            get { return (ComboBox)GetTemplateChild("_YearOptions"); }
         }
     }
 }

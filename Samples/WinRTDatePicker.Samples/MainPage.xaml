@@ -12,13 +12,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="WinRTDatePicker:DatePicker">
                         <StackPanel Background="{TemplateBinding Background}">
-                            <ComboBox x:Name="DayOptions"
+                            <ComboBox x:Name="_DayOptions"
                                       VerticalAlignment="Top"
                                       Background="#CCFF0000" />
-                            <ComboBox x:Name="MonthOptions"
+                            <ComboBox x:Name="_MonthOptions"
                                       VerticalAlignment="Top"
                                       Background="#CC17FF00" />
-                            <ComboBox x:Name="YearOptions"
+                            <ComboBox x:Name="_YearOptions"
                                       VerticalAlignment="Top"
                                       Background="#CC0023FF" />
                         </StackPanel>
