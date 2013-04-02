@@ -16,6 +16,7 @@ namespace WinRTDatePicker
         public static readonly DependencyProperty MonthOptionFormatProperty = DependencyProperty.Register("MonthOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
 
         private readonly ObservableCollection<string> daysInMonth = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> monthsInRange = new ObservableCollection<string>(); 
         private readonly ObservableCollection<int> yearsInRange = new ObservableCollection<int>();
 
         public DatePicker()
@@ -31,10 +32,11 @@ namespace WinRTDatePicker
         {
             base.OnApplyTemplate();
 
+            monthsInRange.Clear();
             for (int i = 1; i <= 12; i++)
             {
                 DateTime monthStart = new DateTime(DateTime.Now.Year, i, 1);
-                MonthOptions.Items.Add(monthStart.ToString(MonthOptionFormat));
+                monthsInRange.Add(monthStart.ToString(MonthOptionFormat));
             }
 
             CreateBindings();
@@ -76,6 +78,9 @@ namespace WinRTDatePicker
             Binding dayOptionsBinding = new Binding { Source = daysInMonth, Mode = BindingMode.OneWay };
             DayOptions.SetBinding(ItemsControl.ItemsSourceProperty, dayOptionsBinding);
 
+            Binding monthOptionsBinding = new Binding { Source = monthsInRange, Mode = BindingMode.OneWay };
+            MonthOptions.SetBinding(ItemsControl.ItemsSourceProperty, monthOptionsBinding);
+            
             Binding yearOptionsBinding = new Binding { Source = yearsInRange, Mode = BindingMode.OneWay };
             YearOptions.SetBinding(ItemsControl.ItemsSourceProperty, yearOptionsBinding);
         }
