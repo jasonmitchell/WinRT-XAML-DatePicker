@@ -18,8 +18,6 @@ namespace WinRTDatePicker
         private readonly ObservableCollection<string> daysInMonth = new ObservableCollection<string>();
         private readonly ObservableCollection<int> yearsInRange = new ObservableCollection<int>();
 
-        private bool controlLoaded;
-
         public DatePicker()
         {
             DefaultStyleKey = typeof(DatePicker);
@@ -33,7 +31,6 @@ namespace WinRTDatePicker
         {
             base.OnApplyTemplate();
 
-            controlLoaded = true;
             for (int i = 1; i <= 12; i++)
             {
                 DateTime monthStart = new DateTime(DateTime.Now.Year, i, 1);
@@ -50,7 +47,7 @@ namespace WinRTDatePicker
 
         private void SetSelectedDate(DateTime newSelectedDate)
         {
-            if (controlLoaded)
+            if (DayOptions != null && MonthOptions != null && YearOptions != null)
             {
                 daysInMonth.Clear();
                 yearsInRange.Clear();
