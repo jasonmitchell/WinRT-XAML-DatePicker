@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WinRT-DatePicker</id>
+        <version>1.0.0</version>
+        <title>WinRT DatePicker</title>
+        <authors>Jason Mitchell</authors>
+        <owners>Jason Mitchell</owners>
+        <licenseUrl>https://raw.github.com/jasonmitchell/WinRT-XAML-DatePicker/master/License.txt</licenseUrl>
+        <projectUrl>http://jason-mitchell.com/windows-8/datepicker-for-c-xaml-windows-store-apps/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A simple Date Picker for use in WinRT XAML apps</description>
+        <tags>WinRT XAML DatePicker Windows Store</tags>
+    </metadata>
+    <files>
+        <file src="..\Src\WinRTDatePicker\Themes\Generic.xaml" target="lib\netcore45\WinRTDatePicker\Themes\Generic.xaml" />
+        <file src="..\Src\WinRTDatePicker\bin\Release\WinRTDatePicker.dll" target="lib\netcore45\WinRTDatePicker.dll" />
+        <file src="..\Src\WinRTDatePicker\bin\Release\WinRTDatePicker.pri" target="lib\netcore45\WinRTDatePicker.pri" />
+    </files>
+</package>
