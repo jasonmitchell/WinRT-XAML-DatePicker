@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinRT-DatePicker</id>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <title>WinRT DatePicker</title>
         <authors>Jason Mitchell</authors>
         <owners>Jason Mitchell</owners>
@@ -10,7 +10,7 @@
         <projectUrl>http://jason-mitchell.com/windows-8/datepicker-for-c-xaml-windows-store-apps/</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A simple Date Picker for use in WinRT XAML apps</description>
-        <tags>WinRT XAML DatePicker Windows Store</tags>
+        <tags>winrt xaml datepicker windows windowsstore windows8 win8</tags>
     </metadata>
     <files>
         <file src="..\Src\WinRTDatePicker\Themes\Generic.xaml" target="lib\netcore45\WinRTDatePicker\Themes\Generic.xaml" />
