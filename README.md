@@ -7,4 +7,4 @@ I quickly made this control to suit my own needs and probably doesn't cover all 
 
 I'm unlikely to dedicate time to this project but will add any new stuff I need for my own work however I will take contributions.
 
-Official NuGet Package: https://nuget.org/packages/WinRT-DatePicker/
+**Official NuGet Package: https://nuget.org/packages/WinRT-DatePicker/**
