@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,6 +22,12 @@ namespace WinRTDatePicker.Samples
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            EventDatePicker.SelectedDateChanged += EventDatePickerOnSelectedDateChanged;
+        }
+
+        private void EventDatePickerOnSelectedDateChanged(object sender, SelectedDateChangedEventArgs selectedDateChangedEventArgs)
+        {
+            SelectedDateChangedTextBox.Text = string.Format("Updated by event handler.  New date {0}", selectedDateChangedEventArgs.NewDate);
         }
     }
 }
