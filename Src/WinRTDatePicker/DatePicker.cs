@@ -15,6 +15,8 @@ namespace WinRTDatePicker
         public static readonly DependencyProperty DayOptionFormatProperty = DependencyProperty.Register("DayOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
         public static readonly DependencyProperty MonthOptionFormatProperty = DependencyProperty.Register("MonthOptionFormat", typeof(string), typeof(DatePicker), new PropertyMetadata(default(string)));
 
+        public event EventHandler<SelectedDateChangedEventArgs> SelectedDateChanged; 
+
         private readonly ObservableCollection<string> daysInRange = new ObservableCollection<string>();
         private readonly ObservableCollection<string> monthsInRange = new ObservableCollection<string>(); 
         private readonly ObservableCollection<int> yearsInRange = new ObservableCollection<int>();
@@ -152,6 +154,9 @@ namespace WinRTDatePicker
             {
                 DatePicker datePicker = (DatePicker)obj;
                 datePicker.SetSelectedDate(newValue);
+
+                if (datePicker.SelectedDateChanged != null)
+                    datePicker.SelectedDateChanged(datePicker, new SelectedDateChangedEventArgs(newValue));
             }
         }
 
