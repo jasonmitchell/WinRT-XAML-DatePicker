@@ -100,24 +100,28 @@
             </StackPanel>
         </StackPanel>
         <StackPanel VerticalAlignment="Top"
-        	HorizontalAlignment="Left"
-        	Margin="5,5,0,0" Grid.Row="1" Grid.Column="1">
-        	<TextBlock TextWrapping="Wrap"
-        		Text="Selected Date Changed Event"
-        		Style="{StaticResource PageSubheaderTextStyle}" />
-        	<WinRTDatePicker:DatePicker x:Name="EventDatePicker"
-        		d:LayoutOverrides="Width" />
-        	<StackPanel Orientation="Horizontal">
-        		<TextBlock TextWrapping="Wrap"
-        			Text="Selected Date:"
-        			Style="{StaticResource BodyTextStyle}" />
-        		<TextBlock TextWrapping="Wrap"
-        			Text="{Binding SelectedDate, ElementName=datePicker}"
-        			Margin="0,0,-204,0"
-        			d:LayoutOverrides="Width"
-        			Style="{StaticResource BodyTextStyle}" />
-        	</StackPanel>
-        	<TextBlock x:Name="SelectedDateChangedTextBox" TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}"/>
+                    HorizontalAlignment="Left"
+                    Margin="5,5,0,0"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <TextBlock TextWrapping="Wrap"
+                       Text="Selected Date Changed Event"
+                       Style="{StaticResource PageSubheaderTextStyle}" />
+            <WinRTDatePicker:DatePicker x:Name="EventDatePicker"
+                                        d:LayoutOverrides="Width" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Selected Date:"
+                           Style="{StaticResource BodyTextStyle}" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding SelectedDate, ElementName=datePicker}"
+                           Margin="0,0,-204,0"
+                           d:LayoutOverrides="Width"
+                           Style="{StaticResource BodyTextStyle}" />
+            </StackPanel>
+            <TextBlock x:Name="SelectedDateChangedTextBox"
+                       TextWrapping="Wrap"
+                       Style="{StaticResource BodyTextStyle}" />
         </StackPanel>
 
     </Grid>
